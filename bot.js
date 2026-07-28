@@ -1,10 +1,12 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
+const { execSync } = require('child_process');
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
-        executablePath: 'chromium',
+        executablePath: execSync('which chromium').toString().trim(),
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
