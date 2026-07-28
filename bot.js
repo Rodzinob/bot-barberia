@@ -23,13 +23,16 @@ client.on('ready', () => {
     console.log('¡A huevo! El bot está conectado y escuchando.');
 });
 
-// Cuando alguien te mande un mensaje
-client.on('message', async (message) => {
-    console.log(`Mensaje nuevo: ${message.body}`);
+// Usamos 'message_create' para capturar cualquier mensaje entrante
+client.on('message_create', async (message) => {
+    // Evitamos que se responda a sí mismo
+    if (message.fromMe) return;
 
-    // Responder en automático si te dicen "hola"
-    if(message.body.toLowerCase() === 'hola') {
-        message.reply('¡Qué onda! Soy el bot de prueba funcionando al 100.');
+    console.log(`Mensaje recibido de ${message.from}: ${message.body}`);
+
+    // Si el mensaje CONTIENE la palabra hola (en cualquier parte del texto)
+    if (message.body.toLowerCase().includes('hola')) {
+        await message.reply('¡Qué onda! Soy el bot de prueba funcionando al 100.');
     }
 });
 
