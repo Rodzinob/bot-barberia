@@ -4,6 +4,7 @@ const qrcode = require('qrcode-terminal');
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
+        executablePath: '/usr/bin/chromium',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
@@ -15,7 +16,6 @@ const client = new Client({
         ]
     }
 });
-
 // Cuando necesite loguearse, escupirá el QR en la terminal
 client.on('qr', (qr) => {
     qrcode.generate(qr, {small: true});
