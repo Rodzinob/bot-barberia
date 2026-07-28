@@ -1,3 +1,12 @@
+const http = require('http');
+const port = process.env.PORT || 3000;
+
+// Servidor fantasma para mantener vivo a Railway
+http.createServer((req, res) => {
+    res.writeHead(200);
+    res.end('Bot de la barberia activo');
+}).listen(port, () => console.log(`Puerto ${port} abierto para Railway`));
+
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
