@@ -13,12 +13,11 @@ const client = new Client({
         ]
     }
 });
-// Cuando necesite loguearse, escupirá el QR en la terminal
+// Cuando necesite loguearse, escupirá un LINK mágico
 client.on('qr', (qr) => {
-    qrcode.generate(qr, {small: true});
-    console.log('¡Abre tu WhatsApp y escanea este código QR!');
+    console.log('¡DA CLIC EN ESTE LINK PARA VER EL QR PERFECTO:');
+    console.log(`https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(qr)}`);
 });
-
 // Cuando el escaneo sea exitoso
 client.on('ready', () => {
     console.log('¡A huevo! El bot está conectado y escuchando.');
