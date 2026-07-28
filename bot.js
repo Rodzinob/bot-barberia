@@ -37,15 +37,18 @@ client.on('ready', () => {
     console.log('[BOT] ¡A HUEVO! El bot está conectado, blindado y escuchando.');
 });
 
-// 5. Filtro inteligente de mensajes
+// 5. Filtro sin bloqueos
 client.on('message_create', async (message) => {
-    // Ignorar bots, grupos y mensajes propios
-    if (message.fromMe || !message.body || message.from.endsWith('@lid') || message.from.endsWith('@g.us')) return;
+    // Solo ignoramos las historias para que no ensucien tu pantalla
+    if (message.from === 'status@broadcast') return;
 
-    console.log(`[MENSAJE] Cliente real escribió: ${message.body}`);
+    // Imprimimos la radiografía exacta del mensaje
+    console.log(`[RAW DETECTADO] De: ${message.from} | Texto: ${message.body} | fromMe: ${message.fromMe}`);
 
-    if (message.body.toLowerCase().includes('hola')) {
+    // Si tiene texto y dice hola, dispara
+    if (message.body && message.body.toLowerCase().includes('hola')) {
         await message.reply('¡Qué onda! Soy el bot de la barbería funcionando al 100.');
+        console.log('[RESPUESTA DISPARADA]');
     }
 });
 
