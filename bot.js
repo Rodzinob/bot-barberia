@@ -4,6 +4,7 @@ const qrcode = require('qrcode-terminal');
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
+        executablePath: 'chromium',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
