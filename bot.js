@@ -10,8 +10,9 @@ http.createServer((req, res) => {
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 
+
 const client = new Client({
-    authStrategy: new LocalAuth(),
+    authStrategy: new LocalAuth({ clientId: 'bot-nube' }), // <-- El truco está aquí
     puppeteer: {
         executablePath: '/usr/bin/chromium',
         args: [
@@ -22,6 +23,8 @@ const client = new Client({
         ]
     }
 });
+
+
 client.on('message_create', async (message) => {
     // 1. Ignorar mensajes que tú mismo envíes
     if (message.fromMe) return;
