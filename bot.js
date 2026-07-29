@@ -8,17 +8,18 @@ http.createServer((req, res) => {
     res.end('Bot activo');
 }).listen(port, () => console.log(`[SERVER] Puerto ${port} abierto para Railway`));
 
-// 2. Configuración del Bot
-console.log('[BOT] Arrancando motores, por favor espera...');
 const client = new Client({
     authStrategy: new LocalAuth({ clientId: 'bot-definitivo' }),
+    // Disfrazamos la conexión para engañar a WhatsApp
+    userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
     puppeteer: {
         executablePath: '/usr/bin/chromium',
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
             '--disable-dev-shm-usage',
-            '--disable-gpu'
+            '--disable-gpu',
+            '--disable-blink-features=AutomationControlled' // Apaga la alerta de bot
         ]
     }
 });
